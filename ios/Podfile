@@ -12,6 +12,9 @@ target 'clothes_detector_mobile' do
     :hermes_enabled => false
   )
 
+  pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
+
+
   target 'clothes_detector_mobileTests' do
     inherit! :complete
     # Pods for testing
