@@ -1,7 +1,8 @@
 import React from 'react';
+import {Button, View} from 'react-native';
 
 import ClothesImagePicker from '../../components/ImagePicker/ImagePicker';
-import {Button, View} from 'react-native';
+import predict from '../../predictor/predictor';
 
 class SavedImages extends React.Component {
   state = {
@@ -20,6 +21,7 @@ class SavedImages extends React.Component {
             title={'Predict'}
             onPress={() => {
               console.log(this.state.image);
+              predict(this.state.image);
             }}
           />
         </View>
