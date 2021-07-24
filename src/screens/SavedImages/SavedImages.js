@@ -1,31 +1,37 @@
 import React from 'react';
-import {Button, View} from 'react-native';
 
 import ClothesImagePicker from '../../components/ImagePicker/ImagePicker';
-import predict from '../../predictor/predictor';
+import ImageMapper from '../../components/ImageMapper/ImageMapper';
 
 class SavedImages extends React.Component {
   state = {
     image: null,
+    predictionMap: [],
   };
 
   setImage = img => {
     this.setState({image: img});
   };
 
+  setPredictionMap = prediction => {
+    this.setState({predictionMap: prediction});
+  };
+
   render() {
     return (
       <>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Button
-            title={'Predict'}
-            onPress={() => {
-              console.log(this.state.image);
-              predict(this.state.image);
-            }}
+        {this.state.image && (
+          <ImageMapper
+            height="100%"
+            width="100%"
+            source={{uri: this.state.image.path}}
+            imgMap={this.state.predictionMap}
           />
-        </View>
-        <ClothesImagePicker setImage={this.setImage} />
+        )}
+        <ClothesImagePicker
+          setImage={this.setImage}
+          setPredictionMap={this.setPredictionMap}
+        />
       </>
     );
   }

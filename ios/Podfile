@@ -17,6 +17,8 @@ target 'clothes_detector_mobile' do
 
   pod 'react-native-config', :path => '../node_modules/react-native-config'
 
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'clothes_detector_mobileTests' do
     inherit! :complete
     # Pods for testing

@@ -3,6 +3,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {SpeedDial} from 'react-native-elements';
 
 import colors from '../../assets/theme/color';
+import predict from '../../predictor/predictor';
 
 class ClothesImagePicker extends React.Component {
   state = {
@@ -13,23 +14,25 @@ class ClothesImagePicker extends React.Component {
     this.setState(state => ({open: !state.open}));
   };
 
+  onChooseImage = image => {
+    this.props.setPredictionMap([]);
+    this.props.setImage(image);
+    predict(image, this.props.setPredictionMap);
+  };
+
   onCameraPress = () => {
     ImagePicker.openCamera({
-      width: 300,
-      height: 400,
       cropping: true,
-    }).then(image => {
-      this.props.setImage(image);
+    }).then(img => {
+      this.onChooseImage(img);
     });
   };
 
   onGalleryPress = () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 400,
       cropping: true,
-    }).then(image => {
-      this.props.setImage(image);
+    }).then(img => {
+      this.onChooseImage(img);
     });
   };
 
