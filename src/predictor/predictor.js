@@ -62,6 +62,7 @@ const getPredictionMap = (img, prediction) => {
     const transformedBox = {
       id: i.toString(),
       name: prediction.classes[i],
+      probability: prediction.scores[i].toFixed(3),
       x1: box[0] * XScale,
       y1: box[1] * YScale,
       x2: box[2] * XScale,

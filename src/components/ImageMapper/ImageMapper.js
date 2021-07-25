@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {ImageBackground, View, TouchableOpacity} from 'react-native';
+import {Text} from 'react-native-elements';
 
 class ImageMapper extends Component {
   getRandomColor = () => {
@@ -14,7 +15,7 @@ class ImageMapper extends Component {
     );
   };
 
-  buildStyle(width, height, item) {
+  buildStyle(item) {
     const {x1, y1, x2, y2} = item;
 
     const style = {
@@ -33,20 +34,32 @@ class ImageMapper extends Component {
     return (
       <View style={style}>
         <ImageBackground style={{height: height, width: width}} source={source}>
-          {imgMap.map((item, index) => (
-            <TouchableOpacity
-              key={item.id}
-              onPress={event => this.props.onPress(item, index, event)}
-              style={[
-                {
-                  position: 'absolute',
-                  borderWidth: 4,
-                  borderColor: this.getRandomColor(),
-                },
-                this.buildStyle(width, height, item),
-              ]}
-            />
-          ))}
+          {imgMap.map((item, index) => {
+            const borderColor = this.getRandomColor();
+            return (
+              <TouchableOpacity
+                key={item.id}
+                onPress={event => this.props.onPress(item, index, event)}
+                style={[
+                  {
+                    justifyContent: 'flex-end',
+                    position: 'absolute',
+                    borderWidth: 4,
+                    borderColor: borderColor,
+                  },
+                  this.buildStyle(item),
+                ]}>
+                <Text
+                  style={{
+                    width: '100%',
+                    backgroundColor: borderColor,
+                    color: 'white',
+                  }}>
+                  {item.name + ': ' + item.probability}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
         </ImageBackground>
       </View>
     );
