@@ -10,14 +10,24 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@google-cloud/vision": "^2.3.8",
+    "@react-native-firebase/app": "^12.7.5",
+    "@react-native-firebase/storage": "^12.7.5",
+    "@react-native-seoul/masonry-list": "^1.0.6",
+    "expo-image-manipulator": "^9.2.2",
     "react": "17.0.1",
     "react-native": "0.64.2",
     "react-native-config": "^1.4.2",
     "react-native-elements": "^3.4.2",
+    "react-native-fs": "^2.18.0",
     "react-native-image-crop-picker": "^0.36.2",
+    "react-native-photo-manipulator": "^1.2.4",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-safe-area-view": "^1.1.1",
-    "react-native-vector-icons": "^8.1.0"
+    "react-native-unimodules": "^0.14.6",
+    "react-native-uuid": "^2.0.1",
+    "react-native-vector-icons": "^8.1.0",
+    "rn-swipeable-panel": "^1.2.5"
   },
   "devDependencies": {
     "@babel/core": "7.14.6",
@@ -28,7 +38,8 @@
     "jest": "26.6.3",
     "metro-react-native-babel-preset": "0.64.0",
     "react-native-svg-app-icon": "^0.4.0",
-    "react-test-renderer": "17.0.1"
+    "react-test-renderer": "17.0.1",
+    "uuid": "^3.4.0"
   },
   "jest": {
     "preset": "react-native"

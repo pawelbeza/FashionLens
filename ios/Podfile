@@ -19,6 +19,10 @@ target 'clothes_detector_mobile' do
 
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
+  pod 'RNFBStorage', :path => '../node_modules/@react-native-firebase/storage'
+
   target 'clothes_detector_mobileTests' do
     inherit! :complete
     # Pods for testing

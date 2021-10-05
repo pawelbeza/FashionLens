@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
+import com.rnfs.RNFSPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
