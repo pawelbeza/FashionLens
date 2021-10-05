@@ -9,10 +9,10 @@
 import React from 'react';
 import type {Node} from 'react';
 
-import SavedImages from './screens/SavedImages/SavedImages';
+import ClothesDetector from './screens/ClothesDetector/ClothesDetector';
 
 const App: () => Node = () => {
-  return <SavedImages />;
+  return <ClothesDetector />;
 };
 
 export default App;

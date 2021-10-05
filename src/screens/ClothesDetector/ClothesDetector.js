@@ -3,7 +3,7 @@ import React from 'react';
 import ClothesImagePicker from '../../components/ImagePicker/ImagePicker';
 import ImageMapper from '../../components/ImageMapper/ImageMapper';
 
-class SavedImages extends React.Component {
+class ClothesDetector extends React.Component {
   state = {
     image: null,
     predictionMap: [],
@@ -37,4 +37,4 @@ class SavedImages extends React.Component {
   }
 }
 
-export default SavedImages;
+export default ClothesDetector;

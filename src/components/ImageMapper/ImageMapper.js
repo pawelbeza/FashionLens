@@ -34,12 +34,18 @@ class ImageMapper extends Component {
     return (
       <View style={style}>
         <ImageBackground style={{height: height, width: width}} source={source}>
-          {imgMap.map((item, index) => {
+          {imgMap.map(item => {
             const borderColor = this.getRandomColor();
             return (
               <TouchableOpacity
                 key={item.id}
-                onPress={event => this.props.onPress(item, index, event)}
+                onPress={() => {
+                  const {x1, y1, x2, y2} = item;
+                  const boxWidth = x2 - x1;
+                  const boxHeight = y2 - y1;
+
+                  item.onPress(source, x1, y1, boxWidth, boxHeight);
+                }}
                 style={[
                   {
                     justifyContent: 'flex-end',

@@ -1,7 +1,10 @@
-import {Dimensions, Platform} from 'react-native';
+import {Dimensions, Linking, Platform} from 'react-native';
 
 import '../constants/api';
 import {API_URL} from '../constants/api';
+import PhotoManipulator from 'react-native-photo-manipulator';
+import storage from '@react-native-firebase/storage';
+import uuid from 'uuid';
 
 const predict = (img, setPredictionMap) => {
   fetch(API_URL, {
@@ -67,6 +70,43 @@ const getPredictionMap = (img, prediction) => {
       y1: box[1] * YScale,
       x2: box[2] * XScale,
       y2: box[3] * YScale,
+      onPress: async src => {
+        let uri;
+        try {
+          uri = await PhotoManipulator.crop(src, {
+            x: box[0],
+            y: box[1],
+            height: box[3] - box[1],
+            width: box[2] - box[0],
+          });
+        } catch (e) {
+          console.log("couldn't crop file: ", e);
+        }
+
+        const id = uuid.v4() + '.jpg';
+        const reference = storage().ref(id);
+
+        try {
+          await reference.putFile(uri);
+        } catch (e) {
+          console.log("couldn't put file: ", e);
+        }
+
+        let downloadUrl;
+        try {
+          downloadUrl = await reference.getDownloadURL();
+        } catch (e) {
+          console.log("couldn't get downloadURL: ", e);
+        }
+
+        try {
+          await Linking.openURL(
+            'https://images.google.com/searchbyimage?image_url=' + downloadUrl,
+          );
+        } catch (e) {
+          console.log("couldn't load page: ", e);
+        }
+      },
     };
 
     predictionMap.push(transformedBox);
