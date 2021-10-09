@@ -3,8 +3,6 @@ import React from 'react';
 import ClothesImagePicker from '../../components/ImagePicker/ImagePicker';
 import ImageMapper from '../../components/ImageMapper/ImageMapper';
 import LottieView from 'lottie-react-native';
-import grey from '../../assets/theme/color';
-import {ActivityIndicator, View} from 'react-native';
 
 class ClothesDetector extends React.Component {
   state = {
@@ -32,7 +30,6 @@ class ClothesDetector extends React.Component {
           <LottieView
             source={require('../../assets/animations/loading.json')}
             autoPlay
-            loop
           />
         )}
 
