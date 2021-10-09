@@ -23,6 +23,8 @@ target 'clothes_detector_mobile' do
 
   pod 'RNFBStorage', :path => '../node_modules/@react-native-firebase/storage'
 
+  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
   target 'clothes_detector_mobileTests' do
     inherit! :complete
     # Pods for testing

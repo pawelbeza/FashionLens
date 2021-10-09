@@ -6,7 +6,7 @@ import PhotoManipulator from 'react-native-photo-manipulator';
 import storage from '@react-native-firebase/storage';
 import uuid from 'uuid';
 
-const predict = (img, setPredictionMap) => {
+const predict = (img, setPredictionMap, setIsLoading) => {
   fetch(API_URL, {
     method: 'POST',
     body: createFormData(img),
@@ -15,6 +15,7 @@ const predict = (img, setPredictionMap) => {
     .then(response => {
       const predictionMap = getPredictionMap(img, response);
       setPredictionMap(predictionMap);
+      setIsLoading(false);
     })
     .catch(error => {
       console.log('prediction failed', error);
@@ -70,7 +71,9 @@ const getPredictionMap = (img, prediction) => {
       y1: box[1] * YScale,
       x2: box[2] * XScale,
       y2: box[3] * YScale,
-      onPress: async src => {
+      onPress: async (src, setIsLoading) => {
+        setIsLoading(true);
+
         let uri;
         try {
           uri = await PhotoManipulator.crop(src, {
@@ -106,6 +109,8 @@ const getPredictionMap = (img, prediction) => {
         } catch (e) {
           console.log("couldn't load page: ", e);
         }
+
+        setIsLoading(false);
       },
     };
 

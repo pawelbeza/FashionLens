@@ -16,8 +16,9 @@ class ClothesImagePicker extends React.Component {
 
   onChooseImage = image => {
     this.props.setPredictionMap([]);
+    this.props.setIsLoading(true);
+    predict(image, this.props.setPredictionMap, this.props.setIsLoading);
     this.props.setImage(image);
-    predict(image, this.props.setPredictionMap);
   };
 
   onCameraPress = () => {

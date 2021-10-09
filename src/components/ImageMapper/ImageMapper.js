@@ -30,7 +30,7 @@ class ImageMapper extends Component {
   }
 
   render() {
-    const {height, width, source, imgMap, style} = this.props;
+    const {height, width, source, imgMap, style, setIsLoading} = this.props;
     return (
       <View style={style}>
         <ImageBackground style={{height: height, width: width}} source={source}>
@@ -40,11 +40,7 @@ class ImageMapper extends Component {
               <TouchableOpacity
                 key={item.id}
                 onPress={() => {
-                  const {x1, y1, x2, y2} = item;
-                  const boxWidth = x2 - x1;
-                  const boxHeight = y2 - y1;
-
-                  item.onPress(source, x1, y1, boxWidth, boxHeight);
+                  item.onPress(source, setIsLoading);
                 }}
                 style={[
                   {

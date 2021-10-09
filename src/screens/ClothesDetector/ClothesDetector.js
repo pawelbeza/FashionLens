@@ -2,11 +2,15 @@ import React from 'react';
 
 import ClothesImagePicker from '../../components/ImagePicker/ImagePicker';
 import ImageMapper from '../../components/ImageMapper/ImageMapper';
+import LottieView from 'lottie-react-native';
+import grey from '../../assets/theme/color';
+import {ActivityIndicator, View} from 'react-native';
 
 class ClothesDetector extends React.Component {
   state = {
     image: null,
     predictionMap: [],
+    isLoading: false,
   };
 
   setImage = img => {
@@ -17,21 +21,37 @@ class ClothesDetector extends React.Component {
     this.setState({predictionMap: prediction});
   };
 
+  setIsLoading = isLoading => {
+    this.setState({isLoading: isLoading});
+  };
+
   render() {
     return (
       <>
-        {this.state.image && (
+        {this.state.isLoading && (
+          <LottieView
+            source={require('../../assets/animations/loading.json')}
+            autoPlay
+            loop
+          />
+        )}
+
+        {this.state.image && !this.state.isLoading && (
           <ImageMapper
             height="100%"
             width="100%"
             source={{uri: this.state.image.path}}
             imgMap={this.state.predictionMap}
+            setIsLoading={this.setIsLoading}
           />
         )}
-        <ClothesImagePicker
-          setImage={this.setImage}
-          setPredictionMap={this.setPredictionMap}
-        />
+        {!this.state.isLoading && (
+          <ClothesImagePicker
+            setImage={this.setImage}
+            setPredictionMap={this.setPredictionMap}
+            setIsLoading={this.setIsLoading}
+          />
+        )}
       </>
     );
   }
