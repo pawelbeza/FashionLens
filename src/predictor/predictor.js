@@ -107,7 +107,9 @@ const getPredictionMap = (img, prediction) => {
 
         try {
           await Linking.openURL(
-            'https://images.google.com/searchbyimage?image_url=' + downloadUrl,
+            'https://images.google.com/searchbyimage?image_url=' +
+              downloadUrl +
+              '&q=shop',
           );
         } catch (e) {
           console.log("couldn't load page: ", e);
