@@ -1,7 +1,7 @@
 import {Dimensions, Linking, Platform} from 'react-native';
 
 import '../constants/api';
-import {API_URL} from '../constants/api';
+import {API_KEY, API_URL} from '../constants/api';
 import PhotoManipulator from 'react-native-photo-manipulator';
 import storage from '@react-native-firebase/storage';
 import uuid from 'uuid';
@@ -9,6 +9,9 @@ import uuid from 'uuid';
 const predict = (img, setPredictionMap, setIsLoading) => {
   fetch(API_URL, {
     method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + API_KEY,
+    },
     body: createFormData(img),
   })
     .then(response => response.json())
