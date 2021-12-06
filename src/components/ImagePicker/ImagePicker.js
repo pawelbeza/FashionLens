@@ -24,17 +24,21 @@ class ClothesImagePicker extends React.Component {
   onCameraPress = () => {
     ImagePicker.openCamera({
       cropping: true,
-    }).then(img => {
-      this.onChooseImage(img);
-    });
+    })
+      .then(img => {
+        this.onChooseImage(img);
+      })
+      .catch(() => {});
   };
 
   onGalleryPress = () => {
     ImagePicker.openPicker({
       cropping: true,
-    }).then(img => {
-      this.onChooseImage(img);
-    });
+    })
+      .then(img => {
+        this.onChooseImage(img);
+      })
+      .catch(() => {});
   };
 
   render() {
