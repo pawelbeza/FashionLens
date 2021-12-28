@@ -47,6 +47,7 @@ class ClothesDetector extends React.Component {
             setImage={this.setImage}
             setPredictionMap={this.setPredictionMap}
             setIsLoading={this.setIsLoading}
+            navigation={this.props.navigation}
           />
         )}
       </>

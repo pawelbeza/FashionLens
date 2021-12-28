@@ -3,7 +3,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {SpeedDial} from 'react-native-elements';
 
 import colors from '../../assets/theme/color';
-import predict from '../../predictor/predictor';
+import predictor from '../../predictor/predictor';
 
 class ClothesImagePicker extends React.Component {
   state = {
@@ -17,7 +17,11 @@ class ClothesImagePicker extends React.Component {
   onChooseImage = image => {
     this.props.setPredictionMap([]);
     this.props.setIsLoading(true);
-    predict(image, this.props.setPredictionMap, this.props.setIsLoading);
+    predictor.predict(
+      image,
+      this.props.setPredictionMap,
+      this.props.setIsLoading,
+    );
     this.props.setImage(image);
   };
 
@@ -41,6 +45,10 @@ class ClothesImagePicker extends React.Component {
       .catch(() => {});
   };
 
+  onRealTimeDetection = () => {
+    this.props.navigation.replace('VideoDetector');
+  };
+
   render() {
     return (
       <SpeedDial
@@ -58,6 +66,11 @@ class ClothesImagePicker extends React.Component {
           icon={{name: 'photo-library', color: colors.white}}
           title="Choose from gallery"
           onPress={this.onGalleryPress}
+        />
+        <SpeedDial.Action
+          icon={{name: 'videocam', color: colors.white}}
+          title="Real time detection"
+          onPress={this.onRealTimeDetection}
         />
       </SpeedDial>
     );

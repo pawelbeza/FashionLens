@@ -12,6 +12,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import SplashScreen from './screens/SplashScreen/SplashScreen';
 import ClothesDetector from './screens/ClothesDetector/ClothesDetector';
+import VideoDetector from './screens/VideoDetector/VideoDetector';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ function App() {
         }}>
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Detector" component={ClothesDetector} />
+        <Stack.Screen name="VideoDetector" component={VideoDetector} />
       </Stack.Navigator>
     </NavigationContainer>
   );

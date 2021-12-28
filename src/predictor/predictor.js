@@ -14,7 +14,9 @@ const predict = (img, setPredictionMap, setIsLoading) => {
     },
     body: createFormData(img),
   })
-    .then(response => response.json())
+    .then(response => {
+      return response.json();
+    })
     .then(response => {
       const predictionMap = getPredictionMap(img, response);
       setPredictionMap(predictionMap);
@@ -37,6 +39,50 @@ const createFormData = photo => {
   });
 
   return data;
+};
+
+const searchVisuallySimilar = async (src, box, setIsLoading) => {
+  setIsLoading(true);
+
+  let uri;
+  try {
+    uri = await PhotoManipulator.crop(src, {
+      x: box[0],
+      y: box[1],
+      height: box[3] - box[1],
+      width: box[2] - box[0],
+    });
+  } catch (e) {
+    console.log("couldn't crop file: ", e);
+  }
+
+  const id = uuid.v4() + '.jpg';
+  const reference = storage().ref(id);
+
+  try {
+    await reference.putFile(uri);
+  } catch (e) {
+    console.log("couldn't put file: ", e);
+  }
+
+  let downloadUrl;
+  try {
+    downloadUrl = await reference.getDownloadURL();
+  } catch (e) {
+    console.log("couldn't get downloadURL: ", e);
+  }
+
+  try {
+    await Linking.openURL(
+      'https://images.google.com/searchbyimage?image_url=' +
+        downloadUrl +
+        '&q=shop',
+    );
+  } catch (e) {
+    console.log("couldn't load page: ", e);
+  }
+
+  setIsLoading(false);
 };
 
 const getPredictionMap = (img, prediction) => {
@@ -75,47 +121,7 @@ const getPredictionMap = (img, prediction) => {
       x2: box[2] * XScale,
       y2: box[3] * YScale,
       onPress: async (src, setIsLoading) => {
-        setIsLoading(true);
-
-        let uri;
-        try {
-          uri = await PhotoManipulator.crop(src, {
-            x: box[0],
-            y: box[1],
-            height: box[3] - box[1],
-            width: box[2] - box[0],
-          });
-        } catch (e) {
-          console.log("couldn't crop file: ", e);
-        }
-
-        const id = uuid.v4() + '.jpg';
-        const reference = storage().ref(id);
-
-        try {
-          await reference.putFile(uri);
-        } catch (e) {
-          console.log("couldn't put file: ", e);
-        }
-
-        let downloadUrl;
-        try {
-          downloadUrl = await reference.getDownloadURL();
-        } catch (e) {
-          console.log("couldn't get downloadURL: ", e);
-        }
-
-        try {
-          await Linking.openURL(
-            'https://images.google.com/searchbyimage?image_url=' +
-              downloadUrl +
-              '&q=shop',
-          );
-        } catch (e) {
-          console.log("couldn't load page: ", e);
-        }
-
-        setIsLoading(false);
+        await searchVisuallySimilar(src, box, setIsLoading);
       },
     };
 
@@ -125,4 +131,4 @@ const getPredictionMap = (img, prediction) => {
   return predictionMap;
 };
 
-export default predict;
+export default {predict, searchVisuallySimilar};
