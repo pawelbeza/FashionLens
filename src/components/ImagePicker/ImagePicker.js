@@ -46,7 +46,7 @@ class ClothesImagePicker extends React.Component {
   };
 
   onRealTimeDetection = () => {
-    this.props.navigation.replace('VideoDetector');
+    this.props.navigation.push('VideoDetector');
   };
 
   render() {
