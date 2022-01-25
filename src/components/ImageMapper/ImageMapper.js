@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {ImageBackground, View, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-elements';
+import styles from './ImageMapperStyles';
 
 class ImageMapper extends Component {
   getRandomColor = () => {
@@ -30,12 +31,12 @@ class ImageMapper extends Component {
   }
 
   render() {
-    const {height, width, source, imgMap, setIsLoading} = this.props;
+    const {source, imgMap, setIsLoading} = this.props;
     return (
       <View>
         <ImageBackground
           resizeMode={'contain'}
-          style={{height: height, width: width}}
+          style={styles.imageBackground}
           source={source}>
           {imgMap.map(item => {
             const borderColor = this.getRandomColor();
@@ -46,20 +47,15 @@ class ImageMapper extends Component {
                   item.onPress(source, setIsLoading);
                 }}
                 style={[
-                  {
-                    justifyContent: 'flex-end',
-                    position: 'absolute',
-                    borderWidth: 4,
-                    borderColor: borderColor,
-                  },
+                  styles.boundingBoxRegion,
+                  {borderColor: borderColor},
                   this.buildStyle(item),
                 ]}>
                 <Text
-                  style={{
-                    width: '100%',
-                    backgroundColor: borderColor,
-                    color: 'white',
-                  }}>
+                  style={[
+                    styles.boundingBoxText,
+                    {backgroundColor: borderColor},
+                  ]}>
                   {item.name + ': ' + item.probability}
                 </Text>
               </TouchableOpacity>

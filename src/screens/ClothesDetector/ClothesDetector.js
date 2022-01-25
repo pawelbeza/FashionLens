@@ -35,8 +35,6 @@ class ClothesDetector extends React.Component {
 
         {this.state.image && !this.state.isLoading && (
           <ImageMapper
-            height="100%"
-            width="100%"
             source={{uri: this.state.image.path}}
             imgMap={this.state.predictionMap}
             setIsLoading={this.setIsLoading}
