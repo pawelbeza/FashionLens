@@ -30,10 +30,13 @@ class ImageMapper extends Component {
   }
 
   render() {
-    const {height, width, source, imgMap, style, setIsLoading} = this.props;
+    const {height, width, source, imgMap, setIsLoading} = this.props;
     return (
-      <View style={style}>
-        <ImageBackground style={{height: height, width: width}} source={source}>
+      <View>
+        <ImageBackground
+          resizeMode={'contain'}
+          style={{height: height, width: width}}
+          source={source}>
           {imgMap.map(item => {
             const borderColor = this.getRandomColor();
             return (

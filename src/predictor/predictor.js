@@ -102,8 +102,8 @@ const getPredictionMap = (img, prediction) => {
   }
 
   // scaling is needed since ImageMapper doesn't support dynamic scaling
-  let XScale = Dimensions.get('window').width / img.width;
-  let YScale = Dimensions.get('window').height / img.height;
+  let scale = Dimensions.get('window').width / img.width;
+  const padding = (Dimensions.get('window').height - img.height * scale) / 2;
 
   let predictionMap = [];
   for (let i = 0; i < prediction.boxes.length; i++) {
@@ -116,10 +116,10 @@ const getPredictionMap = (img, prediction) => {
       id: i.toString(),
       name: prediction.classes[i],
       probability: prediction.scores[i].toFixed(3),
-      x1: box[0] * XScale,
-      y1: box[1] * YScale,
-      x2: box[2] * XScale,
-      y2: box[3] * YScale,
+      x1: box[0] * scale,
+      y1: box[1] * scale + padding,
+      x2: box[2] * scale,
+      y2: box[3] * scale + padding,
       onPress: async (src, setIsLoading) => {
         await searchVisuallySimilar(src, box, setIsLoading);
       },

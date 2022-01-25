@@ -87,11 +87,11 @@ class VideoDetector extends React.Component {
           hideCaptureButton={true}
         />
         {!this.state.isLoading &&
-          this.state.predictionMap.map(item => {
+          this.state.predictionMap.map((item, id) => {
             const borderColor = 'rgb(254,132,132)';
             return (
               <TouchableOpacity
-                key={item.id}
+                key={id}
                 onPress={async () => {
                   this.boxes = [item.left, item.top, item.right, item.bottom];
                   const camera = this.cameraRef.current;
