@@ -39,8 +39,8 @@ class VideoDetector extends React.Component {
     return style;
   }
 
-  setIsLoading = () => {
-    this.setState({isLoading: false});
+  setIsLoading = isLoading => {
+    this.setState({isLoading: isLoading});
   };
 
   handleCapture = async (image: Image) => {
@@ -68,24 +68,26 @@ class VideoDetector extends React.Component {
   render() {
     return (
       <>
-        <Camera
-          ref={this.cameraRef}
-          style={styles.camera}
-          onFrame={async (image: Image) => {
-            const predictions =
-              await RealTimeDetectionModule.createCalendarEvent(image);
+        {!this.state.isLoading && (
+          <Camera
+            ref={this.cameraRef}
+            style={styles.camera}
+            onFrame={async (image: Image) => {
+              const predictions =
+                await RealTimeDetectionModule.createCalendarEvent(image);
 
-            this.setState({
-              predictionMap: predictions,
-              imageWidth: image.getWidth(),
-              imageHeight: image.getHeight(),
-            });
+              this.setState({
+                predictionMap: predictions,
+                imageWidth: image.getWidth(),
+                imageHeight: image.getHeight(),
+              });
 
-            image.release();
-          }}
-          onCapture={this.handleCapture}
-          hideCaptureButton={true}
-        />
+              image.release();
+            }}
+            onCapture={this.handleCapture}
+            hideCaptureButton={true}
+          />
+        )}
         {!this.state.isLoading &&
           this.state.predictionMap.map((item, id) => {
             const borderColor = 'rgb(254,132,132)';
