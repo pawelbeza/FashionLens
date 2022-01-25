@@ -1,11 +1,12 @@
 import React from 'react';
-import {Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
+import {Dimensions, TouchableOpacity} from 'react-native';
 import {Camera} from 'react-native-pytorch-core';
 import {NativeModules} from 'react-native';
 import {Image, ImageUtil} from 'react-native-pytorch-core';
 import {Text} from 'react-native-elements';
 import predictor from '../../predictor/predictor';
 import LottieView from 'lottie-react-native';
+import styles from './VideoDetectorStyles';
 
 const {RealTimeDetectionModule} = NativeModules;
 
@@ -90,7 +91,6 @@ class VideoDetector extends React.Component {
         )}
         {!this.state.isLoading &&
           this.state.predictionMap.map((item, id) => {
-            const borderColor = 'rgb(254,132,132)';
             return (
               <TouchableOpacity
                 key={id}
@@ -101,21 +101,8 @@ class VideoDetector extends React.Component {
                     camera.takePicture();
                   }
                 }}
-                style={[
-                  {
-                    justifyContent: 'flex-end',
-                    position: 'absolute',
-                    borderWidth: 4,
-                    borderColor: borderColor,
-                  },
-                  this.buildStyle(item),
-                ]}>
-                <Text
-                  style={{
-                    width: '100%',
-                    backgroundColor: borderColor,
-                    color: 'white',
-                  }}>
+                style={[styles.boundingBoxRegion, this.buildStyle(item)]}>
+                <Text style={styles.boundingBoxText}>
                   {item.name + ': ' + item.confidence}
                 </Text>
               </TouchableOpacity>
@@ -131,12 +118,5 @@ class VideoDetector extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  camera: {
-    flex: 1,
-    alignSelf: 'stretch',
-  },
-});
 
 export default VideoDetector;
