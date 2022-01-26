@@ -45,6 +45,11 @@ class VideoDetector extends React.Component {
   };
 
   handleCapture = async (image: Image) => {
+    if (this.boxes.length === 0) {
+      image.release();
+      return;
+    }
+
     let XScale = image.getWidth() / 640;
     let YScale = image.getHeight() / 640;
 
@@ -62,6 +67,8 @@ class VideoDetector extends React.Component {
         this.setIsLoading,
       );
     }
+
+    this.boxes = [];
 
     image.release();
   };
